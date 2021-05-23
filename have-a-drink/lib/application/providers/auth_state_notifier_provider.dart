@@ -5,7 +5,7 @@ import 'package:have_a_drink/domain/entity/auth_state.dart';
 
 import 'auth_repository_provider.dart';
 
-final authStateStreamProvider = StateNotifierProvider<AuthStateNotifier, AuthState>((ref) {
+final authStateNotifierProvider = StateNotifierProvider<AuthStateNotifier, AuthState>((ref) {
     final authRepository = ref.watch(authRepositoryProvider);
     return AuthStateNotifier(authRepository);
 });

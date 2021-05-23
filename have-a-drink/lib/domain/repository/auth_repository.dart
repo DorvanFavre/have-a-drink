@@ -10,4 +10,8 @@ abstract class AuthRepository{
   }
 
   Stream<AuthState> authStateSnapshot();
+
+  void login();
+  void logout();
+  void register();
 }
