@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:have_a_drink/constants/view.dart';
+import 'package:have_a_drink/presentation/screens/profile_view.dart';
+import 'package:have_a_drink/presentation/wrappers/auth_wrapper.dart';
+
+import 'auth_view.dart';
 
 class MainPageView extends StatelessWidget {
+  ValueNotifier<int> indexNotifier = ValueNotifier(0);
+
   @override
   Widget build(BuildContext context) {
     return Column(children: [
@@ -16,16 +22,38 @@ class MainPageView extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              IconButton(onPressed: () {}, icon: Icon(Icons.person)),
+              // Profile
               IconButton(
-                  onPressed: () {}, icon: Icon(Icons.shopping_bag_rounded)),
+                  onPressed: () {
+                    AuthWrapper(context, () {
+                      indexNotifier.value = 0;
+                    });
+                  },
+                  icon: Icon(Icons.person)),
+              IconButton(
+                  onPressed: () {
+                    indexNotifier.value = 1;
+                  },
+                  icon: Icon(Icons.shopping_bag_rounded)),
             ],
           ),
         ),
       ),
       // PageView
-      //PageView(),
-      Expanded(child: SizedBox.shrink()),
+      Expanded(
+        child: ValueListenableBuilder<int>(
+            valueListenable: indexNotifier,
+            builder: (context, value, child) => IndexedStack(
+                  index: value,
+                  children: [
+                    ProfileView(),
+                    Container(
+                      color: Colors.blue,
+                    ),
+                  ],
+                )),
+      ),
+
       Container(
         height: 50,
         decoration:

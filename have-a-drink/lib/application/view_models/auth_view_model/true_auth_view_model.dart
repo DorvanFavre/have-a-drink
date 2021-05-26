@@ -1,12 +1,20 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/widgets/editable_text.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:have_a_drink/application/view_models/auth_view_model/auth_view_model.dart';
+import 'package:have_a_drink/domain/entity/result.dart';
 import 'package:have_a_drink/domain/repository/auth_repository.dart';
 
 class TrueAuthViewModel implements AuthViewModel {
   final AuthRepository authRepository;
 
-  TrueAuthViewModel(this.authRepository);
+  TrueAuthViewModel(this.authRepository) {
+    messageStream = streamController.stream.asBroadcastStream();
+  }
+
+  StreamController<String> streamController = StreamController<String>();
 
   @override
   TextEditingController loginEmailController = TextEditingController();
@@ -23,6 +31,9 @@ class TrueAuthViewModel implements AuthViewModel {
   @override
   TextEditingController registerRepeatedPasswordController =
       TextEditingController();
+
+  @override
+  Stream<String>? messageStream;
 
   @override
   void logout() {
@@ -45,7 +56,13 @@ class TrueAuthViewModel implements AuthViewModel {
 
     if (message != null) {
     } else {
-      authRepository.login();
+      authRepository.login(email, password).then((value) {
+        if (value is Failure) {
+          streamController.add(value.message);
+        } else if (value is Success) {
+          streamController.add('Login successfully');
+        }
+      });
     }
   }
 
@@ -68,8 +85,20 @@ class TrueAuthViewModel implements AuthViewModel {
       message = 'password does not correspond';
     }
 
-    if (message != null) {}
+    if (message != null) {
+    } else {
+      authRepository.register(email, password).then((value) {
+        if (value is Failure) {
+          streamController.add(value.message);
+        } else if (value is Success) {
+          streamController.add('Registered successfully');
+        }
+      });
+    }
+  }
 
-    return authRepository.register();
+  @override
+  void dispose() {
+    streamController.close();
   }
 }

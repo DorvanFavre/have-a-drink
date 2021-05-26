@@ -1,33 +1,32 @@
-
-
-
 import 'dart:math';
 
 import 'package:have_a_drink/domain/entity/auth_state.dart';
 import 'package:have_a_drink/domain/entity/auth_user.dart';
+import 'package:have_a_drink/domain/entity/result.dart';
 import 'package:have_a_drink/domain/repository/auth_repository.dart';
 
-class FakeAuthRepository implements AuthRepository{
+class FakeAuthRepository implements AuthRepository {
   @override
   Stream<AuthState> authStateSnapshot() {
-    return Stream<AuthState>.periodic(Duration(seconds: 2), (sec){
-      return Random().nextBool() ? NoUserLoggedIn() : UserLoggedIn(AuthUser('123'));
+    return Stream<AuthState>.periodic(Duration(seconds: 2), (sec) {
+      return Random().nextBool()
+          ? NoUserLoggedIn()
+          : UserLoggedIn(AuthUser('123'));
     });
   }
 
   @override
-  void login() {
-    // TODO: implement login
+  Future<Result> login(String email, String password) {
+    throw UnimplementedError();
   }
 
   @override
-  void logout() {
-    // TODO: implement logout
+  Future<Result> logout() {
+    throw UnimplementedError();
   }
 
   @override
-  void register() {
-    // TODO: implement register
+  Future<Result> register(String email, String password) {
+    throw UnimplementedError();
   }
-
 }
