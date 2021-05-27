@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:have_a_drink/presentation/screens/app.dart';
+import 'package:have_a_drink/presentation/wrappers/app.dart';
 
 import 'application/providers/admin_state_provider.dart';
 import 'application/providers/auth_state_notifier_provider.dart';

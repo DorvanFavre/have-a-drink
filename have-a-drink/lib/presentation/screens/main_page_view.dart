@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:have_a_drink/constants/view.dart';
+import 'package:have_a_drink/presentation/screens/explore_view.dart';
 import 'package:have_a_drink/presentation/screens/profile_view.dart';
 import 'package:have_a_drink/presentation/wrappers/auth_wrapper.dart';
 
 import 'auth_view.dart';
 
 class MainPageView extends StatelessWidget {
-  ValueNotifier<int> indexNotifier = ValueNotifier(0);
+  ValueNotifier<int> indexNotifier = ValueNotifier(2);
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +51,7 @@ class MainPageView extends StatelessWidget {
                     Container(
                       color: Colors.blue,
                     ),
+                    ExploreView()
                   ],
                 )),
       ),
@@ -64,6 +66,14 @@ class MainPageView extends StatelessWidget {
               blurRadius: 10,
               spreadRadius: 3)
         ]),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            IconButton(onPressed: (){}, icon: Icon(Icons.explore)),
+            IconButton(onPressed: (){}, icon: Icon(Icons.search)),
+            IconButton(onPressed: (){}, icon: Icon(Icons.favorite)),
+          ],
+        ),
       )
     ]);
   }
