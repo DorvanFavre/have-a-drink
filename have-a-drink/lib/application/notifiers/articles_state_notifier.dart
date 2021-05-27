@@ -5,7 +5,9 @@ import 'package:have_a_drink/domain/repository/article_repository.dart';
 class ArticlesStateNotifier extends StateNotifier<List<Article>> {
   final ArticleRepository articleRepository;
 
-  ArticlesStateNotifier(this.articleRepository) : super([]);
+  ArticlesStateNotifier(this.articleRepository) : super([]) {
+    getMore();
+  }
 
   void getMore() {
     state = articleRepository.getMore();

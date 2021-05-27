@@ -7,7 +7,7 @@ import 'package:have_a_drink/presentation/wrappers/auth_wrapper.dart';
 import 'auth_view.dart';
 
 class MainPageView extends StatelessWidget {
-  ValueNotifier<int> indexNotifier = ValueNotifier(2);
+  final ValueNotifier<int> indexNotifier = ValueNotifier(2);
 
   @override
   Widget build(BuildContext context) {
@@ -47,11 +47,13 @@ class MainPageView extends StatelessWidget {
             builder: (context, value, child) => IndexedStack(
                   index: value,
                   children: [
+                    
                     ProfileView(),
                     Container(
                       color: Colors.blue,
                     ),
-                    ExploreView()
+                    ExploreView(),
+                    
                   ],
                 )),
       ),
@@ -69,7 +71,9 @@ class MainPageView extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            IconButton(onPressed: (){}, icon: Icon(Icons.explore)),
+            IconButton(onPressed: (){
+              indexNotifier.value = 2;
+            }, icon: Icon(Icons.explore)),
             IconButton(onPressed: (){}, icon: Icon(Icons.search)),
             IconButton(onPressed: (){}, icon: Icon(Icons.favorite)),
           ],

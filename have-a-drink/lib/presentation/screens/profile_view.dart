@@ -16,24 +16,25 @@ class _ProfileViewState extends State<ProfileView> {
   Widget build(BuildContext context) {
     final authViewModel = context.read(authViewModelProvider);
 
-    // Push auth view if no user logged in
-    return ProviderListener(
-      provider: authStateNotifierProvider,
-      onChange: (context, authState) {
-        if (authState is NoUserLoggedIn) {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => AuthView()));
-        }
+    return Consumer(
+      builder: (context, watch, child) {
+        final authState = watch(authStateNotifierProvider);
+
+        if (authState is UserLoggedIn) {
+          return Container(
+            child: Center(
+              child: TextButton(
+                  onPressed: () {
+                    authViewModel.logout();
+                  },
+                  child: Text('logout')),
+            ),
+          );
+        } else
+          return Center(
+            child: Text('No user logged in'),
+          );
       },
-      child: Container(
-        child: Center(
-          child: TextButton(
-              onPressed: () {
-                authViewModel.logout();
-              },
-              child: Text('logout')),
-        ),
-      ),
     );
   }
 }
