@@ -1,7 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:have_a_drink/application/providers/admin_state_provider.dart';
 import 'package:have_a_drink/constants/view.dart';
 import 'package:have_a_drink/presentation/screens/explore_view.dart';
 import 'package:have_a_drink/presentation/screens/profile_view.dart';
+import 'package:have_a_drink/presentation/wrappers/admin_wrapper.dart';
 import 'package:have_a_drink/presentation/wrappers/auth_wrapper.dart';
 
 import 'auth_view.dart';
@@ -31,6 +35,13 @@ class MainPageView extends StatelessWidget {
                     });
                   },
                   icon: Icon(Icons.person)),
+
+              AdminWrapper(
+                  child: Icon(
+                Icons.vpn_key,
+                color: Colors.red,
+              )),
+              // Basket
               IconButton(
                   onPressed: () {
                     indexNotifier.value = 1;
@@ -47,13 +58,11 @@ class MainPageView extends StatelessWidget {
             builder: (context, value, child) => IndexedStack(
                   index: value,
                   children: [
-                    
                     ProfileView(),
                     Container(
                       color: Colors.blue,
                     ),
                     ExploreView(),
-                    
                   ],
                 )),
       ),
@@ -71,11 +80,13 @@ class MainPageView extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            IconButton(onPressed: (){
-              indexNotifier.value = 2;
-            }, icon: Icon(Icons.explore)),
-            IconButton(onPressed: (){}, icon: Icon(Icons.search)),
-            IconButton(onPressed: (){}, icon: Icon(Icons.favorite)),
+            IconButton(
+                onPressed: () {
+                  indexNotifier.value = 2;
+                },
+                icon: Icon(Icons.explore)),
+            IconButton(onPressed: () {}, icon: Icon(Icons.search)),
+            IconButton(onPressed: () {}, icon: Icon(Icons.favorite)),
           ],
         ),
       )

@@ -1,1 +1,1 @@
-final kGeneralPadding = 30.0;
+const kGeneralPadding = 30.0;

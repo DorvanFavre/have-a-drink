@@ -5,6 +5,8 @@ import 'package:have_a_drink/application/providers/auth_state_notifier_provider.
 import 'package:have_a_drink/constants/view.dart';
 import 'package:have_a_drink/domain/entity/article.dart';
 import 'package:have_a_drink/presentation/components/article_card.dart';
+import 'package:have_a_drink/presentation/screens/create_article_view.dart';
+import 'package:have_a_drink/presentation/wrappers/admin_wrapper.dart';
 
 class ExploreView extends StatelessWidget {
   @override
@@ -23,13 +25,59 @@ class ExploreView extends StatelessWidget {
               } else
                 return false;
             },
-            child: ListView.builder(
-                itemCount: articles.length,
-                itemBuilder: (context, index) {
-                  final article = articles[index];
-                  return ArticleCard(article);
-                }),
+            child: Column(
+              children: [
+                AdminWrapper(
+                    child: Container(
+                  height: 50,
+                  alignment: Alignment.center,
+                  child: IconButton(
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => CreateArticleView()));
+                      },
+                      icon: Icon(Icons.add)),
+                )),
+                Expanded(
+                  child: ListView.builder(
+                      itemCount: articles.length,
+                      itemBuilder: (context, index) {
+                        final article = articles[index];
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            myTitle(context, index),
+                            ArticleCard(article),
+                          ],
+                        );
+                      }),
+                ),
+              ],
+            ),
           );
         }));
   }
+}
+
+Widget myTitle(BuildContext context, int index) {
+  return index == 0
+      ? Padding(
+          padding: const EdgeInsets.only(bottom: 20),
+          child: RichText(
+            text: TextSpan(
+                text: 'Discover our\n',
+                style: Theme.of(context).textTheme.headline4,
+                children: [
+                  TextSpan(
+                      text: 'best ',
+                      style: Theme.of(context).textTheme.headline4?.copyWith(
+                          color: Theme.of(context).colorScheme.primary)),
+                  TextSpan(
+                      text: 'products',
+                      style: Theme.of(context).textTheme.headline4)
+                ]),
+          ),
+        )
+      : SizedBox.shrink();
 }

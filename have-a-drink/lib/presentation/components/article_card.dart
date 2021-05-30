@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:have_a_drink/constants/app.dart';
 import 'package:have_a_drink/domain/entity/article.dart';
 
 class ArticleCard extends StatelessWidget {
@@ -20,14 +21,36 @@ class ArticleCard extends StatelessWidget {
         children: [
           // Image
           Container(
-            color: Colors.red,
             width: 100,
+            color: Colors.red,
+            /*child: Image(
+                image: NetworkImage(kImagePath + article.image),
+              )
+              */
+          ),
+          SizedBox(
+            width: 20,
           ),
           Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(article.title),
-              Text(article.description),
-              Text(article.price.toString())
+              Spacer(
+                flex: 3,
+              ),
+              Text(
+                article.title,
+                style: TextStyle(color: Colors.black54, fontSize: 18),
+              ),
+              Text(
+                article.description,
+                style: TextStyle(color: Colors.black54, fontSize: 15),
+              ),
+              Spacer(flex: 1),
+              Text(
+                article.price.toString() + ' CHF',
+                style: TextStyle(color: Colors.black87, fontSize: 20),
+              ),
+              Spacer(flex: 1),
             ],
           ),
           Spacer(),

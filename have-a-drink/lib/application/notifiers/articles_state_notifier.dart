@@ -9,7 +9,16 @@ class ArticlesStateNotifier extends StateNotifier<List<Article>> {
     getMore();
   }
 
+  bool fetchingData = false;
   void getMore() {
-    state = articleRepository.getMore();
+    if (!fetchingData) {
+      fetchingData = true;
+      articleRepository.getMore().then((articles) {
+        fetchingData = false;
+
+        state.addAll(articles);
+        state = state;
+      });
+    }
   }
 }
