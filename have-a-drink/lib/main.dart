@@ -6,7 +6,8 @@ import 'application/providers/admin_state_provider.dart';
 import 'application/providers/auth_state_notifier_provider.dart';
 
 void main() {
-  runApp(ProviderScope(child: MyApp()));
+ runApp(ProviderScope(child: MyApp()));
+ //runApp(Container());
 }
 
 /*class MyApp2 extends StatelessWidget {

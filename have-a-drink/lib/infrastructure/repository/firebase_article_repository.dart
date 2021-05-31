@@ -38,7 +38,7 @@ class FirebaseArticleRepository implements ArticleRepository {
       }).toList();
     }).catchError((e) {
       print(e);
-      return [] as List<ArticleModel>;
+      return [] as List<Article>;
     });
   }
 }

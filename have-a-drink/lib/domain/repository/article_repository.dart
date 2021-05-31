@@ -5,7 +5,7 @@ import 'package:have_a_drink/infrastructure/repository/firebase_article_reposito
 
 abstract class ArticleRepository {
   factory ArticleRepository() {
-    return FakeArticleRepository();
+    return FirebaseArticleRepository();
   }
 
   Future<List<Article>> getMore();

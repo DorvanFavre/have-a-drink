@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+/*import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:have_a_drink/domain/entity/article.dart';
 
 extension Model on Article {
@@ -25,3 +25,4 @@ extension Model on Article {
 }
 
 
+*/
