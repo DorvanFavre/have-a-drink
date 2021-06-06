@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
             // Watch providers
             Consumer(builder: (context, watch, child) {
               final authState = watch(authStateNotifierProvider);
-              print('authState : ' + authState.toString());
+              //print('app: authState : ' + authState.toString());
               return SizedBox.shrink();
             }),
           ],

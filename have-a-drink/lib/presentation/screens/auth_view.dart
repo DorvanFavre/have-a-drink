@@ -35,7 +35,6 @@ class _AuthViewState extends State<AuthView> {
 
   @override
   void dispose() {
-    print('dispose');
     streamSubscription?.cancel();
     super.dispose();
   }
