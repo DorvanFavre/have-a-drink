@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:have_a_drink/constants/app.dart';
 import 'package:have_a_drink/domain/entity/article.dart';
+import 'package:have_a_drink/presentation/components/my_image.dart';
 import 'package:have_a_drink/presentation/screens/detail_view.dart';
 
 class ArticleCard extends StatelessWidget {
@@ -30,11 +31,7 @@ class ArticleCard extends StatelessWidget {
             // Image
             Container(
               width: 100,
-              color: Colors.red,
-              /*child: Image(
-                  image: NetworkImage(kImagePath + article.image),
-                )
-                */
+              child: MyImage(path: article.image),
             ),
             SizedBox(
               width: 20,

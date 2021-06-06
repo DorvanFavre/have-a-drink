@@ -24,7 +24,13 @@ class MyApp extends StatelessWidget {
                     color: Colors.black87, fontWeight: FontWeight.w800))),
         home: Stack(
           children: [
-            Scaffold(body: MainPageView()),
+            Scaffold(
+                /*floatingActionButton: FloatingActionButton(
+                  onPressed: () {
+                    downloadFileExample();
+                  },
+                ),*/
+                body: MainPageView()),
 
             // Watch providers
             Consumer(builder: (context, watch, child) {
