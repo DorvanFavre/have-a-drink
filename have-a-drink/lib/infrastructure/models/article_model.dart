@@ -1,4 +1,4 @@
-/*import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:have_a_drink/domain/entity/article.dart';
 
 class ArticleModel extends Article {
@@ -9,29 +9,28 @@ class ArticleModel extends Article {
   static final String imageField = 'image';
 
   ArticleModel(String title, String description, int price,
-      DateTime creationTime, String image)
-      : super(title, description, price, creationTime, image);
+      DateTime creationTime, String image, String docId)
+      : super(title, description, price, creationTime, image, docId);
 
-  factory ArticleModel.fromEntity(Map<String, dynamic> data) {
+  factory ArticleModel.fromFirestore(String docId, Map<String, dynamic> data) {
     return ArticleModel(
         data[titleField],
         data[descriptionField],
         data[priceField],
         (data[creationTimeField] as Timestamp).toDate(),
-        data[imageField]);
-  }
-
-  Map<String, dynamic> toMap() {
-    return {
-      titleField: title,
-      descriptionField: description,
-      priceField: price,
-      creationTimeField: creationTime,
-      imageField: image
-    };
+        data[imageField],
+        docId);
   }
 }
 
-
-
-*/
+extension Model on Article {
+  Map<String, dynamic> toMap() {
+    return {
+      ArticleModel.titleField: title,
+      ArticleModel.descriptionField: description,
+      ArticleModel.priceField: price,
+      ArticleModel.creationTimeField: creationTime,
+      ArticleModel.imageField: image
+    };
+  }
+}

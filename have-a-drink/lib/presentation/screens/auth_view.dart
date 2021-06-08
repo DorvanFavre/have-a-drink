@@ -52,6 +52,18 @@ class _AuthViewState extends State<AuthView> {
         resizeToAvoidBottomInset: false,
         body: Stack(
           children: [
+            // Backbutton
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: IconButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    icon: Icon(Icons.arrow_back_ios_new_rounded)),
+              ),
+            ),
             // Message
             /*Builder(builder: (context) {
               streamSubscription = viewModel.messageStream?.listen((message) {
@@ -116,7 +128,7 @@ class _LoginScreen extends StatelessWidget {
     final viewModel = context.read(authViewModelProvider);
 
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 60),
+      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 80),
       child: Stack(
         children: [
           // Inputs

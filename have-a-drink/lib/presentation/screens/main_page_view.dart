@@ -7,8 +7,10 @@ import 'package:have_a_drink/presentation/screens/explore_view.dart';
 import 'package:have_a_drink/presentation/screens/profile_view.dart';
 import 'package:have_a_drink/presentation/wrappers/admin_wrapper.dart';
 import 'package:have_a_drink/presentation/wrappers/auth_wrapper.dart';
+import 'package:have_a_drink/presentation/wrappers/identity_wrapper.dart';
 
 import 'auth_view.dart';
+import 'favourite_view.dart';
 
 class MainPageView extends StatelessWidget {
   final ValueNotifier<int> indexNotifier = ValueNotifier(2);
@@ -63,6 +65,8 @@ class MainPageView extends StatelessWidget {
                       color: Colors.blue,
                     ),
                     ExploreView(),
+                    Container(),
+                    FavouriteView()
                   ],
                 )),
       ),
@@ -86,7 +90,13 @@ class MainPageView extends StatelessWidget {
                 },
                 icon: Icon(Icons.explore)),
             IconButton(onPressed: () {}, icon: Icon(Icons.search)),
-            IconButton(onPressed: () {}, icon: Icon(Icons.favorite)),
+            IconButton(
+                onPressed: () {
+                  IdentityWrapper(context, () {
+                    indexNotifier.value = 4;
+                  });
+                },
+                icon: Icon(Icons.favorite)),
           ],
         ),
       )

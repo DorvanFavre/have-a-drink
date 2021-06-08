@@ -26,7 +26,7 @@ class TrueCreateArticleViewModel implements CreateArticleViewModel {
     final creationTime = DateTime.now();
     final image = 'wine.jpg';
     final article = Article(titleController.text, descriptionController.text,
-        int.parse(priceController.text), creationTime, image);
+        int.parse(priceController.text), creationTime, image, 'no id yet');
     return articleRepository.add(article);
   }
 

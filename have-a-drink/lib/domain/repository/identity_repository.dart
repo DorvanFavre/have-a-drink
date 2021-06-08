@@ -1,3 +1,4 @@
+import 'package:have_a_drink/domain/entity/article.dart';
 import 'package:have_a_drink/domain/entity/identity.dart';
 import 'package:have_a_drink/domain/entity/result.dart';
 import 'package:have_a_drink/infrastructure/repository/fake_identity_repository.dart';
@@ -9,4 +10,6 @@ abstract class IdentityRepository {
   }
 
   Future<Result<Identity>> getIdentity(String uid);
+
+  Future<Result> setIdentity(Identity identity);
 }

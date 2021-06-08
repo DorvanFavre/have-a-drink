@@ -11,4 +11,6 @@ abstract class ArticleRepository {
   Future<List<Article>> getMore();
 
   Future<Result> add(Article article);
+
+  Future<Result<Article>> getArticleFromId(String id);
 }

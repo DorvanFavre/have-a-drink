@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:have_a_drink/application/providers/identity_state_notifier_provider.dart';
 import 'package:have_a_drink/constants/app.dart';
 import 'package:have_a_drink/domain/entity/article.dart';
+import 'package:have_a_drink/domain/entity/identity.dart';
 import 'package:have_a_drink/presentation/components/my_image.dart';
+import 'package:have_a_drink/presentation/screens/auth_view.dart';
 import 'package:have_a_drink/presentation/screens/detail_view.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ArticleCard extends StatelessWidget {
   final Article article;
@@ -59,9 +63,41 @@ class ArticleCard extends StatelessWidget {
               ],
             ),
             Spacer(),
+
+            // Favourite
             Align(
               alignment: Alignment.topRight,
-              child: IconButton(onPressed: () {}, icon: Icon(Icons.favorite)),
+              child: Consumer(builder: (context, watch, child) {
+                final identity = watch(identityStateNotifierProvider);
+
+                if (identity is Identity) {
+                  bool favourited =
+                      identity.favouritesArticles.contains(article.docId);
+
+                  return IconButton(
+                    onPressed: () {
+                      context
+                          .read(identityStateNotifierProvider.notifier)
+                          .toggleFavorite(article);
+                    },
+                    icon: Icon(
+                      Icons.favorite,
+                      color: favourited
+                          ? Colors.red
+                          : Theme.of(context).iconTheme.color,
+                    ),
+                  );
+                }
+                return IconButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => AuthView()));
+                  },
+                  icon: Icon(
+                    Icons.favorite,
+                  ),
+                );
+              }),
             )
           ],
         ),

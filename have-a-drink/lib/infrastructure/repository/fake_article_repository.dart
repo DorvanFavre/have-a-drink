@@ -11,11 +11,16 @@ class FakeArticleRepository implements ArticleRepository {
       ..addAll(List.generate(
           5,
           (index) => Article(
-              'title $index', 'description', 5, DateTime.now(), 'wine.png'))));
+              'title $index', 'description', 5, DateTime.now(), 'wine.png', 'fake id'))));
   }
 
   @override
   Future<Result> add(Article article) {
+    return Future.value(Success());
+  }
+
+  @override
+  Future<Result<Article>> getArticleFromId(String id) {
     return Future.value(Success());
   }
 }

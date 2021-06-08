@@ -8,8 +8,13 @@ class IdentityModel extends Identity {
     return IdentityModel(
       uid,
       data['email'] ?? '-',
-      []
-      //((data['favouritesArticles'] as List).cast<String>()),
+      ((data['favouritesArticles'] ?? []) as List).cast<String>(),
     );
+  }
+}
+
+extension Model on Identity {
+  Map<String, dynamic> toMap() {
+    return {'email': email, 'favouritesArticles': favouritesArticles};
   }
 }
