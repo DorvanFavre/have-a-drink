@@ -17,54 +17,54 @@ class ArticleCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(PageRouteBuilder(
-            opaque: false, pageBuilder: (context, _, __) => DetailView()));
-
-        //showDialog(context: context, builder: (context) => SimpleDialog());
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => DetailView(article)));
       },
       child: Container(
         margin: EdgeInsets.only(bottom: 20),
-        padding: EdgeInsets.all(20),
-        height: 150,
+        padding: EdgeInsets.all(10),
+        height: 120,
         decoration: ShapeDecoration(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
             color: Theme.of(context).cardColor),
-        child: Row(
+        child: Stack(
           children: [
-            // Image
-            Container(
-              width: 100,
-              child: MyImage(path: article.image),
-            ),
-            SizedBox(
-              width: 20,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            Row(
               children: [
-                Spacer(
-                  flex: 3,
+                // Image
+                AspectRatio(
+                  aspectRatio: 1,
+                  child: MyImage(path: article.image),
                 ),
-                Text(
-                  article.title,
-                  style: TextStyle(color: Colors.black54, fontSize: 18),
+
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Spacer(
+                      flex: 3,
+                    ),
+                    Text(
+                      article.title,
+                      style: TextStyle(color: Colors.black54, fontSize: 16),
+                    ),
+                    Text(
+                      article.description,
+                      style: TextStyle(color: Colors.black54, fontSize: 14),
+                    ),
+                    Spacer(flex: 1),
+                    Text(
+                      article.price.toString() + ' CHF',
+                      style: TextStyle(color: Colors.black87, fontSize: 18),
+                    ),
+                    Spacer(flex: 1),
+                  ],
                 ),
-                Text(
-                  article.description,
-                  style: TextStyle(color: Colors.black54, fontSize: 15),
-                ),
-                Spacer(flex: 1),
-                Text(
-                  article.price.toString() + ' CHF',
-                  style: TextStyle(color: Colors.black87, fontSize: 20),
-                ),
-                Spacer(flex: 1),
+                Spacer(),
+
+                // Favourite
               ],
             ),
-            Spacer(),
-
-            // Favourite
             Align(
               alignment: Alignment.topRight,
               child: Consumer(builder: (context, watch, child) {

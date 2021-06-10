@@ -5,6 +5,7 @@ import 'package:have_a_drink/application/providers/auth_state_notifier_provider.
 import 'package:have_a_drink/constants/view.dart';
 import 'package:have_a_drink/domain/entity/article.dart';
 import 'package:have_a_drink/presentation/components/article_card.dart';
+import 'package:have_a_drink/presentation/components/button_admin.dart';
 import 'package:have_a_drink/presentation/screens/create_article_view.dart';
 import 'package:have_a_drink/presentation/wrappers/admin_wrapper.dart';
 
@@ -31,27 +32,33 @@ class ExploreView extends StatelessWidget {
                     child: Container(
                   height: 50,
                   alignment: Alignment.center,
-                  child: IconButton(
-                      onPressed: () {
+                  child: ButtonAdmin(
+                      onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => CreateArticleView()));
                       },
-                      icon: Icon(Icons.add)),
+                      text: 'add'),
                 )),
                 Expanded(
-                  child: ListView.builder(
-                      itemCount: articles.length,
-                      itemBuilder: (context, index) {
-                        final article = articles[index];
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            myTitle(context, index),
-                            ArticleCard(article),
-                          ],
-                        );
-                      }),
+                  child: RefreshIndicator(
+                    onRefresh: () => context
+                        .read(articlesStateNotifierProvider.notifier)
+                        .fetchNewArticles(),
+                    child: ListView.builder(
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        itemCount: articles.length,
+                        itemBuilder: (context, index) {
+                          final article = articles[index];
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              myTitle(context, index),
+                              ArticleCard(article),
+                            ],
+                          );
+                        }),
+                  ),
                 ),
               ],
             ),
@@ -59,6 +66,8 @@ class ExploreView extends StatelessWidget {
         }));
   }
 }
+
+class AdminButton {}
 
 Widget myTitle(BuildContext context, int index) {
   return index == 0

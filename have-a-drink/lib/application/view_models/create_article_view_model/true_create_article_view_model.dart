@@ -1,5 +1,7 @@
+import 'package:flutter/src/foundation/change_notifier.dart';
 import 'package:flutter/src/widgets/editable_text.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:have_a_drink/constants/app.dart';
 import 'package:have_a_drink/domain/entity/article.dart';
 
 import 'package:have_a_drink/domain/entity/result.dart';
@@ -24,9 +26,11 @@ class TrueCreateArticleViewModel implements CreateArticleViewModel {
   @override
   Future<Result> add() {
     final creationTime = DateTime.now();
-    final image = 'wine.jpg';
-    final article = Article(titleController.text, descriptionController.text,
-        int.parse(priceController.text), creationTime, image, 'no id yet');
+    final image = imageNotifier.value ?? kDefaultImage;
+    final String title = titleController.text;
+    final String description = descriptionController.text;
+    final article = Article(title, description, int.parse(priceController.text),
+        creationTime, image, 'no id yet');
     return articleRepository.add(article);
   }
 
@@ -36,4 +40,7 @@ class TrueCreateArticleViewModel implements CreateArticleViewModel {
     descriptionController.clear();
     priceController.clear();
   }
+
+  @override
+  ValueNotifier<String?> imageNotifier = ValueNotifier(null);
 }

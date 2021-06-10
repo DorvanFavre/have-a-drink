@@ -1,26 +1,29 @@
 import 'package:flutter/material.dart';
 
-class Button1 extends StatelessWidget {
+class ButtonAdmin extends StatelessWidget {
   final VoidCallback? onTap;
-  final Widget? child;
+  final String? text;
 
-  Button1({
+  ButtonAdmin({
     @required this.onTap,
-    @required this.child,
+    @required this.text,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: onTap,
-      child: child ?? SizedBox.shrink(),
+      child: Text(
+        text ?? '-',
+        style: TextStyle(color: Colors.white, fontSize: 16),
+      ),
       style: TextButton.styleFrom(
           shadowColor: Colors.black45,
           elevation: 7,
           padding: EdgeInsets.symmetric(horizontal: 30, vertical: 14),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          backgroundColor: Theme.of(context).colorScheme.primary),
+          backgroundColor: Colors.red),
     );
   }
 }

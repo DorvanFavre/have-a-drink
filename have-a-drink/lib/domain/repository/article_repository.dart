@@ -10,7 +10,10 @@ abstract class ArticleRepository {
 
   Future<List<Article>> getMore();
 
+  Future<List<Article>> fetchNewArticles();
+
   Future<Result> add(Article article);
+  Future<Result> remove(Article article);
 
   Future<Result<Article>> getArticleFromId(String id);
 }

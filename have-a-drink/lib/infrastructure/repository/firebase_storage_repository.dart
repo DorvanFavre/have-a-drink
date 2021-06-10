@@ -13,6 +13,11 @@ class FirebaseStorageRepository implements StorageRepository {
         print('firebase storage repository : error : ' + e.toString());
       });*/
 
-    return FirebaseStorage.instance.ref('/' + path).getDownloadURL();
+    return FirebaseStorage.instance
+        .ref('/' + path)
+        .getDownloadURL()
+        .catchError((e) {
+    });
+
   }
 }

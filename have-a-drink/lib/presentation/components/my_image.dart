@@ -13,20 +13,29 @@ class MyImage extends StatelessWidget {
     return Image.asset(kImagePath + path);
 
     // From Stroage
-    /*return FutureBuilder<String>(
+    return FutureBuilder<String>(
         future: context.read(storageRepositoryProvider).getDownloadUrl(path),
         builder: (context, snap) {
           if (snap.connectionState == ConnectionState.done) {
-            if (snap.data != null)
+            if (snap.data != null) {
+              try{
               return Image.network(snap.data!);
-            else
+              } catch (e) {
+                print('my image : $e');
+              }
+              return Container(
+                color: Colors.yellow,
+
+              );
+            } else {
               return Container(
                 color: Colors.red,
               );
+            }
           } else
             return Container(
               color: Colors.green,
             );
-        });*/
+        });
   }
 }
